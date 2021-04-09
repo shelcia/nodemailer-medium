@@ -4,30 +4,38 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const PORT = process.env.PORT || 4050;
 const nodemailer = require("nodemailer"); //importing node mailer
+const template = require("./template"); //importing node mailer
 
+//IMPORTING ENVIRONMENT VARIABLES
 dotenv.config();
 
 //MIDDLEWARE
 
 app.use(express.json(), cors());
 
+//WE WILL BE USING POST API ENDPOINTS
 app.post("/sending-mail", async (req, res) => {
   try {
+    // CREATING TRANSPORTER OBJECT WITH SMTP TRANSPORT
     const transporter = nodemailer.createTransport({
       service: "gmail",
+      // service: "smtp.ethereal.email", //ETHREAL SMTP
+      // port: 587, //PORT
       auth: {
-        user: process.env.EMAIL,
-        pass: process.env.PASSWORD,
+        user: process.env.EMAIL, //EMAIL IN .env
+        pass: process.env.PASSWORD, //PASSWORD IN .env
       },
     });
 
+    // ADDING MAIL OPTIONS
     const mailOptions = {
       from: process.env.EMAIL,
       to: req.body.email,
-      subject: `Regarding you Registration with VMS`,
-      html: `<h2 style="color: red">Hi hehe</h2>`,
+      subject: `HOLY DAMNNNNN !👻`,
+      html: `${template}`,
     };
-    transporter.sendMail(mailOptions, function (error, info) {
+    // SENDING MAIL
+    transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         console.log(error);
         res.status(401).send("error");
