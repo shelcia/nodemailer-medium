@@ -12,6 +12,6 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.2",
-    "nodemailer": "^6.9.0"
+    "nodemailer": "^6.9.2"
   }
 }
